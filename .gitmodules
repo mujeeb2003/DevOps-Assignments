@@ -1,0 +1,3 @@
+[submodule "git-practice"]
+	path = ./Github Lab/git-practice
+	url = https://github.com/mujeeb2003/git-practice
