@@ -39,7 +39,7 @@ This project is built using modern, robust technologies to ensure scalability, p
 
 The License Manager system is built with a modern, scalable architecture where components communicate in a well-defined manner:
 
-![System Architecture](architecture.png)
+![System Architecture](./images/architecture.png)
 
 ### Docker Container Architecture
 
@@ -117,13 +117,13 @@ const connection = mysql.createConnection({
 This approach is similar to Docker Compose's service name resolution without requiring a compose file.
 
 ### Docker ps output
-![Docker PS](dockerPS.png)
+![Docker PS](./images/dockerPS.png)
 
 ### Docker logs output
-![Docker Logs](dockerLogs.png)
+![Docker Logs](./images/dockerLogs.png)
 
 ### Accessing frontend application
-![Application](Applicationimage.png)
+![Application](./images/Applicationimage.png)
 
 ## Task 4
 
