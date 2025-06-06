@@ -1,0 +1,14 @@
+FROM mysql:8.0.40
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=lic_db
+ENV MYSQL_USER=admin
+ENV MYSQL_PASSWORD=admin
+
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD mysqladmin ping -h localhost -u "${MYSQL_USER}" -p"${MYSQL_PASSWORD}" || exit 1
+
+EXPOSE 3306
+
+CMD ["mysqld"]

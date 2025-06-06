@@ -1,0 +1,17 @@
+Docker Assignment Reflection
+
+What inspired your application idea, and how did you incorporate creativity?
+
+The License Manager application was inspired by a meeting at office concerning PTCL's problem for tracking software licenses and compliance. And that concern turned into this application where I incorporated a microservices architecture and incorporated features like multi domain architecture, automated emails, automated status updated and role based privileges.
+
+What challenges did you face in designing or implementing the microservices architecture without Docker Compose, and how did you address them?
+
+The main challenge was establishing communication between isolated containers without Docker Compose's automatic service discovery. I addressed this by creating a custom Docker network that enables automatic DNS resolution using container names as hostnames. Another challenge was ensuring the sequence of the container startup, I had to start the database before the backend container because the backend depends on the database and if the database was not running, the backend would fail to connect with it. Same goes for the frontend, before accessing it in the browser, it is important to start the backend. Lastly, the manual one by one image build, than running and at the end clearing up the containers becomes much easier by using docker compose, where a single command builds the three images and runs all at once.
+
+How did Docker's features make your development process easier or more robust?
+
+Docker's networking feature was crucial for seamless inter-service communication, allowing the backend to connect to the database using simple container names. Multi-stage builds in the frontend Dockerfile optimized image size by separating build and runtime environments. Docker volumes provided reliable data persistence, ensuring database integrity across container lifecycles. The health check capabilities integrated perfectly with my monitoring system, providing built-in container health verification.
+
+How could your application be extended or improved in a production environment?
+
+In production, the application could be enhanced with container orchestration using Kubernetes for automatic scaling and load balancing. Implementing proper secrets management instead of environment variables would improve security. Adding centralized logging with ELK stack and implementing CI/CD pipelines for automated testing and deployment would streamline operations. The health monitoring system could be extended with alerting capabilities and integration with monitoring tools like Prometheus and Grafana for comprehensive observability.
