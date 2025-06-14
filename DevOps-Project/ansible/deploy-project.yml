@@ -1,0 +1,37 @@
+---
+- name: Configure Azure VM for Ansible Lab
+  hosts: azure_vm
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+  
+    - name: Install required packages
+      apt:
+        name: apache2
+        state: present
+
+    - name: Start Apache and enable it on boot
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+  
+    - name: Create a directory in hostname
+      file:
+        path: /home/mujeeb2112345/ansible_lab
+        state: directory
+        owner: mujeeb2112345
+        group: mujeeb2112345
+        mode: '0755'
+
+    - name: Deploy custom index.html
+      copy:
+        src: /home/jenkins/DevOps-Project/app/index.html
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'

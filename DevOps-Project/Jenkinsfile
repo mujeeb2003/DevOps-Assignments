@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+    environment {
+        TF_DIR = "/home/jenkins/DevOps-Project/terraform"
+        ANSIBLE_DIR = "/home/jenkins/DevOps-Project/ansible"
+        INVENTORY_FILE = "${ANSIBLE_DIR}/inventory.ini"
+        SSH_CREDENTIALS_ID = "ansible-ssh-key"  
+    }
+
+    stages {
+        stage('Terraform Init & Apply') {
+            steps {
+                dir("${env.TF_DIR}") {
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+
+        stage('Extract Public IP & Create Inventory') {
+            steps {
+                script {
+                    def publicIp = sh(script: "terraform -chdir=${env.TF_DIR} output -raw public_ip", returnStdout: true).trim()
+
+                    writeFile file: "${env.INVENTORY_FILE}", text: """
+[azure_vm]
+${publicIp} ansible_user=mujeeb2112345 ansible_ssh_private_key_file=/home/jenkins/.ssh/ansible_key.pem
+"""
+                }
+            }
+        }
+
+        stage('Inject SSH Key') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: "${env.SSH_CREDENTIALS_ID}", keyFileVariable: 'SSH_KEY')]) {
+                    sh 'cp $SSH_KEY /home/jenkins/.ssh/ansible_key.pem && chmod 600 /home/jenkins/.ssh/ansible_key.pem'
+                }
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                dir("${env.ANSIBLE_DIR}") {
+                    sh 'ansible-playbook -i inventory.ini deploy-project.yml'
+                }
+            }
+        }
+
+        stage('Verify Apache') {
+            steps {
+                script {
+                    def publicIp = sh(script: "terraform -chdir=${env.TF_DIR} output -raw public_ip", returnStdout: true).trim()
+                    sh "curl -I http://${publicIp} | grep '200 OK'"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline finished. You can destroy the infra manually using Terraform if needed."
+        }
+    }
+}

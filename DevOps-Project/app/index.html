@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Project Showcase</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden; /* Prevents scrollbars if content slightly overflows */
+        }
+
+        .container {
+            background-color: rgba(22, 33, 62, 0.8); /* Darker semi-transparent background */
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 90%;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8em;
+            color: #50c878; /* Emerald Green */
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #50c878, 0 0 20px #50c878;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            from { text-shadow: 0 0 8px #50c878, 0 0 15px #50c878; }
+            to { text-shadow: 0 0 15px #50c878, 0 0 25px #50c878, 0 0 5px #fff; }
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #c0c0c0;
+        }
+
+        .tools-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            color: #e94560; /* Fiery Rose */
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .tool-card {
+            background-color: rgba(15, 52, 96, 0.7); /* Slightly lighter than container bg */
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #f0f0f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #16213e;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4); /* Fiery Rose glow */
+            background-color: #e94560;
+            color: #1a1a2e;
+        }
+        
+        .footer-text {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            p {
+                font-size: 1em;
+            }
+            .tools-title {
+                font-size: 1.3em;
+            }
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Deployment Successful!</h1>
+        <p>
+            This application has been successfully launched into the Azure cloud.
+            It stands as a demonstration of modern DevOps practices, orchestrated by a powerful suite of tools.
+        </p>
+        
+        <div class="tools-title">Powered By:</div>
+        <div class="tools-grid">
+            <div class="tool-card">Ansible</div>
+            <div class="tool-card">Docker</div>
+            <div class="tool-card">Terraform</div>
+            <div class="tool-card">Jenkins</div>
+        </div>
+        
+        <p class="footer-text">
+            DevOps Project - Ready for the Future!
+        </p>
+    </div>
+</body>
+</html>
